@@ -10,22 +10,23 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
-        $(document).ready(function () {
-            execSelect();
-        });
+        function button1Pressed() {
+            doTable();
+        }
 
-        async function execSelect() {
-            var sql = 'select * from Users';
-            var objects = await osql.connect(sql);
-            console.log(objects);
+        async function doTable() {
+            var objects = [
+                { name: '田中', score: 10 },
+                { name: '鈴木', score: 20 },
+                { name: '松本', score: 30 }
+            ];
             var html = '';
             html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
-                html = html + '<tr>';
                 var object = objects[i];
-                html = html + '<td>' + object.id + '</td>';
+                html = html + '<tr>';
                 html = html + '<td>' + object.name + '</td>';
-                html = html + '<td>' + object.email + '</td>';
+                html = html + '<td>' + object.score + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
@@ -36,7 +37,9 @@
 </head>
 
 <body>
-    <h1>Users</h1>
+    <h1>表組みの例題</h1>
+    <button onclick="doTable()">X</button>
+    <hr>
     <p id="result">xxxx</p>
 </body>
 

@@ -11,34 +11,32 @@
 
     <script>
         function button1Pressed() {
-            execSelect();
+            doInsert();
         }
 
-        async function execSelect() {
+        async function doInsert() {
             var userid = document.getElementById('tf1').value;
-            var username = document.getElementById('tf2').value;
-            var email = document.getElementById('tf3').value;
+            var tweet = document.getElementById('tf2').value;
 
-            var sql = 'insert into Users (id, name, email) values("%USERID%", "%USERNAME%", "%EMAIL%");';
+            var sql = 'insert into Tweets (name, tweet, time) values("%USERID%", "%TWEET%", now());';
             sql = sql.replace("%USERID%", userid);
-            sql = sql.replace("%USERNAME%", username);
-            sql = sql.replace("%EMAIL%", email);
-            console.log(sql);
+            sql = sql.replace("%TWEET%", tweet);
             var objects = await osql.connect(sql);
             console.log(objects);
+
+            document.getElementById('result').innerHTML = "tweetしました";
         }
     </script>
 
 </head>
 
 <body>
-    <h1>User登録</h1>
-    userid:<input id="tf1" value="" type="textfield">
+    <h1>Tweets</h1>
     <br>
-    name:<input id="tf2" value="" type="textfield">
+    名前:<input id="tf1" value="名無し" type="textfield">
     <br>
-    email:<input id="tf3" value="" type="textfield">
-    <button onclick="button1Pressed()">登録</button>
+    tweet:<input id="tf2" type="textfield">
+    <button onclick="button1Pressed()">tweet</button>
     <br>
     <p id="result"></p>
 </body>
