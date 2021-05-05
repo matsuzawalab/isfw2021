@@ -5,41 +5,40 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="settings.js"></script>
-    <script type="text/javascript" src="osql.js"></script>
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../settings.js"></script>
+    <script type="text/javascript" src="../osql.js"></script>
 
     <script>
         function button1Pressed() {
-            execUpdate();
+            execSelect();
         }
 
-        async function execUpdate() {
+        async function execSelect() {
             var userid = document.getElementById('tf1').value;
             var username = document.getElementById('tf2').value;
             var email = document.getElementById('tf3').value;
 
-            var sql = 'update Users set name="%USERNAME%", email="%EMAIL%" where id="%USERID%";';
+            var sql = 'insert into Users (id, name, email) values("%USERID%", "%USERNAME%", "%EMAIL%");';
             sql = sql.replace("%USERID%", userid);
             sql = sql.replace("%USERNAME%", username);
             sql = sql.replace("%EMAIL%", email);
+            console.log(sql);
             var objects = await osql.connect(sql);
-
-            document.getElementById('result').innerHTML = 'OK';
-
+            console.log(objects);
         }
     </script>
 
 </head>
 
 <body>
-    <h1>User変更</h1>
+    <h1>User登録</h1>
     userid:<input id="tf1" value="" type="textfield">
     <br>
     name:<input id="tf2" value="" type="textfield">
     <br>
     email:<input id="tf3" value="" type="textfield">
-    <button onclick="button1Pressed()">変更</button>
+    <button onclick="button1Pressed()">登録</button>
     <br>
     <p id="result"></p>
 </body>
