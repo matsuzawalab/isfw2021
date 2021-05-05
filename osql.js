@@ -8,6 +8,7 @@
 var osql = {};
 
 osql.connect = function (sql) {
+    console.log(sql);
     var query = {};
     query.userid = settings.userid;
     query.password = settings.password;
@@ -16,11 +17,17 @@ osql.connect = function (sql) {
     return new Promise(function (resolve) {
         $.post(settings.apiurl, query, function (data, textStatus) {
             try {
+                if (data && data.startsWith('Error:')) {
+                    console.error(sql);
+                    console.error(data);
+                    window.alert(data + '\n' + sql);
+                    return;
+                }
                 var objects = JSON.parse(data);
                 resolve(objects);
             } catch (ex) {
-                console.error(sql);
                 console.error(ex);
+                console.error(sql);
             }
         });
     });
@@ -35,5 +42,9 @@ osql.getParams = function () {
         params[tokens[0]] = tokens[1];
     });
     return params;
+};
+
+osql.getParam = function (key) {
+    return osql.getParams()[key];
 };
 
