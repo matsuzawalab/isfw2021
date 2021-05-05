@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../settings.js"></script>
+    <script type="text/javascript" src="../osql.js"></script>
+
+    <script>
+        function button1Pressed() {
+            execUpdate();
+        }
+
+        async function execUpdate() {
+            var userid = document.getElementById('tf1').value;
+            var password = document.getElementById('tf2').value;
+            var username = document.getElementById('tf3').value;
+
+            var sql = `update Users set name="${username}", password="${password}" where id="${userid}";`;
+            var objects = await osql.connect(sql);
+
+            document.getElementById('result').innerHTML = 'OK';
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>User変更</h1>
+    userid:<input id="tf1" value="" type="textfield">
+    <br>
+    password:<input id="tf2" value="" type="password">(公開されますので真面目なパスワードは入れないでください．)
+    <br>
+    username:<input id="tf3" value="" type="textfield">
+    <button onclick="button1Pressed()">変更</button>
+    <br>
+    <p id="result"></p>
+</body>
+
+</html>
