@@ -35,6 +35,7 @@ osql.connect = function (sql) {
 
 osql.getParams = function () {
     var paramstr = document.location.search.substring(1);
+    paramstr = decodeURI(paramstr);
     var paramstrs = paramstr.split('&');
     params = {};
     paramstrs.forEach(function (each) {

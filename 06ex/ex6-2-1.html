@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../settings.js"></script>
+    <script type="text/javascript" src="../osql.js"></script>
+
+    <script>
+        function buttonPressed() {
+            var name = document.getElementById('tf1').value;
+            sessionStorage.setItem('name', name);
+            location.href = 'ex6-2-to.html';
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>セッション(1) sessionStorageを使う</h1>
+    <br>
+    名前:<input id="tf1" value="名前" type="textfield">
+    <button onclick="buttonPressed()">ボタン</button>
+</body>
+
+</html>
